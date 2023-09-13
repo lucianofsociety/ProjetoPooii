@@ -5,6 +5,9 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.UsuarioController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aluno.saolucas
@@ -46,7 +49,7 @@ public class FRCadUsu extends javax.swing.JFrame {
         BTSalvar = new javax.swing.JButton();
         BTCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ulbra - Cadastro de Usuario");
         setResizable(false);
 
@@ -82,8 +85,18 @@ public class FRCadUsu extends javax.swing.JFrame {
         jLabel8.setText("ATIVO");
 
         BTSalvar.setText("SALVAR");
+        BTSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTSalvarMouseClicked(evt);
+            }
+        });
 
         BTCancelar.setText("CANCELAR");
+        BTCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTCancelarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,9 +152,9 @@ public class FRCadUsu extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDTNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CHKAtivo))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CHKAtivo)
+                    .addComponent(txtDTNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -178,6 +191,62 @@ public class FRCadUsu extends javax.swing.JFrame {
     private void txtRSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRSenhaActionPerformed
+
+    private void BTCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_BTCancelarMouseClicked
+
+    private boolean verificarCampos() {
+        if (txtNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Nome' em branco");
+            return false;
+        }
+
+        if (!txtNome.getText().matches("^[\\p{L} ]+$")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Nome' possui caracteres inválidos");
+            return false;
+        }
+        
+        if (txtEmail.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Email' em branco");
+            return false;
+        }
+        
+        if (!txtEmail.getText().matches("^[a-zA-Z._]+@[a-zA-Z._]+.[a-zA-Z._]+$")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Email' possui caracteres inválidos");
+            return false;
+        }
+        
+        if (!txtDTNasc.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'Data de Nascimento' possui formato inválidos"+ "EX: 01/01/2000");
+            return false;
+        }
+        
+        char[] senha = txtSenha.getPassword();
+        if(new String (senha).length() <8){
+            JOptionPane.showMessageDialog(null,"Campo 'senha' deve ser maior que 8 caracteres");
+            return false;
+        }
+        
+        if(!new String(senha).equals(new String(txtRSenha.getPassword()))){
+            JOptionPane.showMessageDialog(null,"As senhas não são iguais");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void BTSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTSalvarMouseClicked
+        if (!verificarCampos()) {
+            return;
+        }
+        //salvar
+        UsuarioController controller = new UsuarioController();
+        
+    }//GEN-LAST:event_BTSalvarMouseClicked
 
     /**
      * @param args the command line arguments
