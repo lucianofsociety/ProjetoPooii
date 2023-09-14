@@ -13,7 +13,7 @@ public class Usuario {
         return pkUsuario;
     }
 
-    public void setPkUsusario(int pkUsuario) {
+    public void setPkUsuario(int pkUsuario) {
         this.pkUsuario = pkUsuario;
     }
 
@@ -55,6 +55,13 @@ public class Usuario {
 
     public void setAtivoUsu(int ativoUsu) {
         this.ativoUsu = ativoUsu;
+    }
+    
+    public String ativoToString(){
+        if(this.ativoUsu == 1)
+            return "Ativo";
+        else
+            return "Inativo";
     }
 
     @Override

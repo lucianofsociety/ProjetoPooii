@@ -6,6 +6,7 @@
 package br.ulbra.view;
 
 import br.ulbra.controller.UsuarioController;
+import br.ulbra.utils.Utils;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,7 +46,7 @@ public class FRCadUsu extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtRSenha = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
-        CHKAtivo = new javax.swing.JCheckBox();
+        chkAtivo = new javax.swing.JCheckBox();
         BTSalvar = new javax.swing.JButton();
         BTCancelar = new javax.swing.JButton();
 
@@ -129,7 +130,7 @@ public class FRCadUsu extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(CHKAtivo))))
+                            .addComponent(chkAtivo))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,7 +154,7 @@ public class FRCadUsu extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CHKAtivo)
+                    .addComponent(chkAtivo)
                     .addComponent(txtDTNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
@@ -245,7 +246,12 @@ public class FRCadUsu extends javax.swing.JFrame {
         }
         //salvar
         UsuarioController controller = new UsuarioController();
-        
+        String senha = new String(txtSenha.getPassword());
+        if(controller.adicionarUsuario(txtNome.getText(), txtEmail.getText(), senha,
+                txtDTNasc.getText(), Utils.salvarBoolean(chkAtivo.isSelected()))){
+                this.dispose();
+        };
+            
     }//GEN-LAST:event_BTSalvarMouseClicked
 
     /**
@@ -286,7 +292,7 @@ public class FRCadUsu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTCancelar;
     private javax.swing.JButton BTSalvar;
-    private javax.swing.JCheckBox CHKAtivo;
+    private javax.swing.JCheckBox chkAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

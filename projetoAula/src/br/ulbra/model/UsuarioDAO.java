@@ -35,7 +35,7 @@ public class UsuarioDAO {
     }
 
     public boolean adicionarUsuario(String nome, String email, String senha, String datanasc, int ativo) {
-        String sql = "INSERT INTO TBUSUARIOS (nomeUsu, emailUsu, senhaUsu, datanascUsu, ativoUsu)"
+        String sql = "INSERT INTO TBUSUARIO (nomeUsu, emailUsu, senhaUsu, datanascUsu, ativoUsu)"
                 + "VALUES (?,?,?,?,?)";
         try {
             PreparedStatement stmt = gerenciador.getConexao().prepareStatement(sql);
@@ -44,7 +44,8 @@ public class UsuarioDAO {
             stmt.setString(3, senha);
             stmt.setString(4, datanasc);
             stmt.setInt(5, ativo);
-            JOptionPane.showMessageDialog(null, "Usuario: " + nome + "Inserido com sucesso! ");
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Usuario: " + nome + " Inserido com sucesso! ");
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro" + e.getMessage());
@@ -80,6 +81,41 @@ public class UsuarioDAO {
         } finally {
             GerenciadorConexao.closeConnection(con, stmt, rs);
         }
+        return usuarios;
+    }
+    
+    public List<Usuario> readForDesc(String desc){
+        String sql = "SELECT * FROM tbusuario WHERE nomeusu LIKE ?";
+        GerenciadorConexao gerenciador = GerenciadorConexao.getInstancia();
+        Connection con = gerenciador.getConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Usuario>  usuarios = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%"+desc+"%");
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                
+                Usuario usuario = new Usuario();
+                
+                usuario.setPkUsuario(rs.getInt("pkusuario"));
+                usuario.setNomeUsu(rs.getString("nomeusu"));
+                usuario.setEmailUsu(rs.getString("emailusu"));
+                usuario.setSenhaUsu(rs.getString("senhausu"));
+                usuario.setDataNasc(rs.getString("datanascusu"));
+                usuario.setAtivoUsu(rs.getString("ativousu"));
+                usuarios.add(usuario);
+            }
+        }catch (SQLException ex){
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null ex);
+        }finally {
+            GerenciadorConexao.closeConnection(con, stmt, rs);
+        }
+        
         return usuarios;
     }
 
