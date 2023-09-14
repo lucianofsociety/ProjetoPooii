@@ -5,6 +5,10 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.UsuarioController;
+import br.ulbra.model.Usuario;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author aluno.saolucas
@@ -58,6 +62,11 @@ public class FRConUsu extends javax.swing.JFrame {
         });
 
         BTPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/search.png"))); // NOI18N
+        BTPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTPesquisarMouseClicked(evt);
+            }
+        });
 
         Tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,6 +144,22 @@ public class FRConUsu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFiltroActionPerformed
 
+    private void pesquisar() {
+        DefaultTableModel modelo = (DefaultTableModel) Tabela.getModel();
+        modelo.setNumRows(0);
+        UsuarioController controller = new UsuarioController();
+        for (Usuario usu : controller.redForDesc(txtFiltro.getText())) {
+            Object[] linha = {usu.getPkUsuario(), usu.getNomeUsu(), usu.getEmailUsu(),
+                usu.getDataNasc(), usu.ativoToString()};
+            modelo.addRow(linha);
+
+        }
+
+
+    private void BTPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTPesquisarMouseClicked
+        pesquisar();
+    }//GEN-LAST:event_BTPesquisarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -149,16 +174,24 @@ public class FRConUsu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConUsu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConUsu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConUsu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConUsu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
