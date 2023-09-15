@@ -37,7 +37,7 @@ public class FRMenu extends javax.swing.JFrame {
         miSair = new javax.swing.JMenuItem();
         miConsultas = new javax.swing.JMenu();
         miConUsuarios = new javax.swing.JMenuItem();
-        miConCadastro = new javax.swing.JMenuItem();
+        miConAgenda = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         miAjuda = new javax.swing.JMenuItem();
 
@@ -97,10 +97,15 @@ public class FRMenu extends javax.swing.JFrame {
         miConsultas.setText("Consultas");
 
         miConUsuarios.setText("Usuarios");
+        miConUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConUsuariosActionPerformed(evt);
+            }
+        });
         miConsultas.add(miConUsuarios);
 
-        miConCadastro.setText("Cadastro");
-        miConsultas.add(miConCadastro);
+        miConAgenda.setText("Agenda");
+        miConsultas.add(miConAgenda);
 
         jMenuBar1.add(miConsultas);
 
@@ -136,8 +141,12 @@ public class FRMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_miCadUsuarioActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        new FRConUsu().setVisible (true);
+        
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void miConUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConUsuariosActionPerformed
+        new FRConUsu().setVisible (true);
+    }//GEN-LAST:event_miConUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,7 +192,7 @@ public class FRMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem miAjuda;
     private javax.swing.JMenuItem miCadAgenda;
     private javax.swing.JMenuItem miCadUsuario;
-    private javax.swing.JMenuItem miConCadastro;
+    private javax.swing.JMenuItem miConAgenda;
     private javax.swing.JMenuItem miConUsuarios;
     private javax.swing.JMenu miConsultas;
     private javax.swing.JMenuItem miSair;

@@ -2,6 +2,7 @@ package br.ulbra.controller;
 
 import br.ulbra.model.Usuario;
 import br.ulbra.model.UsuarioDAO;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class UsuarioController {
@@ -28,4 +29,12 @@ public class UsuarioController {
     public List<Usuario> readForDesc(String desc){
         return usuarioDAO.readForDesc(desc);
     }
+    
+     public Usuario readForPk(int pk){
+        return usuarioDAO.readForPk(pk);
+    }
+     
+     public boolean alterarUsuario(Usuario u){
+         return usuarioDAO.alterarUsuario(u);
+     }
 }

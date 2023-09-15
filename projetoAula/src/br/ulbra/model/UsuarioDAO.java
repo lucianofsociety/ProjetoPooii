@@ -67,7 +67,7 @@ public class UsuarioDAO {
             while (rs.next()) {
 
                 Usuario usuario = new Usuario();
-                usuario.setPkUsusario(rs.getInt("pkusu"));
+                usuario.setPkUsuario(rs.getInt("pkusu"));
                 usuario.setNomeUsu(rs.getString("nomeusu"));
                 usuario.setEmailUsu(rs.getString("emailusu"));
                 usuario.setSenhaUsu(rs.getString("senhausu"));
@@ -107,16 +107,80 @@ public class UsuarioDAO {
                 usuario.setEmailUsu(rs.getString("emailusu"));
                 usuario.setSenhaUsu(rs.getString("senhausu"));
                 usuario.setDataNasc(rs.getString("datanascusu"));
-                usuario.setAtivoUsu(rs.getString("ativousu"));
+                usuario.setAtivoUsu(rs.getInt("ativousu"));
                 usuarios.add(usuario);
             }
         }catch (SQLException ex){
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null ex);
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null, ex);
         }finally {
             GerenciadorConexao.closeConnection(con, stmt, rs);
         }
         
         return usuarios;
     }
+    
+    public Usuario readForPk(int pk){
+        String sql = "SELECT * FROM tbusuario WHERE pkusuario = ?";
+        GerenciadorConexao gerenciador = GerenciadorConexao.getInstancia();
+        Connection con = gerenciador.getConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Usuario  usuario = new Usuario();
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, pk);
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                
+                
+                
+                usuario.setPkUsuario(rs.getInt("pkusuario"));
+                usuario.setNomeUsu(rs.getString("nomeusu"));
+                usuario.setEmailUsu(rs.getString("emailusu"));
+                usuario.setSenhaUsu(rs.getString("senhausu"));
+                usuario.setDataNasc(rs.getString("datanascusu"));
+                usuario.setAtivoUsu(rs.getInt("ativousu"));
+                
+            }
+        }catch (SQLException ex){
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null, ex);
+        }finally {
+            GerenciadorConexao.closeConnection(con, stmt, rs);
+        }
+        
+        return usuario;
+    }
+    
+    public boolean alterarUsuario(Usuario u){
+        GerenciadorConexao gerenciador = GerenciadorConexao.getInstancia();
+        Connection con = gerenciador.getConexao();
+        PreparedStatement stmt = null;
+        
+        try{
+            stmt = con.prepareStatement("UPDATE tbUsuario SET nomeusu = ?,emailusu = ?,"
+                    +"senhausu = ?, datanasc = ?, ativousu = ? WHERE pkusuario");
+            stmt.setString(1,u.getNomeUsu());
+            stmt.setString(2,u.getEmailUsu());
+            stmt.setString(3,u.getSenhaUsu());
+            stmt.setString(4,u.getDataNasc());
+            stmt.setInt(5,u.getAtivoUsu());
+            stmt.setInt(6,u.getPkUsuario());
+            
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Atualizacao com sucesso! ");
+            return true;
+            
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar : " + ex);
+        }finally{
+            GerenciadorConexao.closeConnection(con, stmt);
+        }
+        return false;
+    }
+
 
 }

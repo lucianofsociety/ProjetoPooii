@@ -91,6 +91,11 @@ public class FRCadUsu extends javax.swing.JFrame {
                 BTSalvarMouseClicked(evt);
             }
         });
+        BTSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTSalvarActionPerformed(evt);
+            }
+        });
 
         BTCancelar.setText("CANCELAR");
         BTCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,6 +258,10 @@ public class FRCadUsu extends javax.swing.JFrame {
         };
             
     }//GEN-LAST:event_BTSalvarMouseClicked
+
+    private void BTSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BTSalvarActionPerformed
 
     /**
      * @param args the command line arguments
