@@ -57,6 +57,11 @@ public class FRAutentica extends javax.swing.JFrame {
 
         jLabel4.setText("SENHA");
 
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaActionPerformed(evt);
+            }
+        });
         txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSenhaKeyPressed(evt);
@@ -152,6 +157,10 @@ public class FRAutentica extends javax.swing.JFrame {
             logar();
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaActionPerformed
 
     /**
      * @param args the command line arguments
