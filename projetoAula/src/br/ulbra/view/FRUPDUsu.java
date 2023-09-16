@@ -15,10 +15,13 @@ import javax.swing.JOptionPane;
  * @author aluno.saolucas
  */
 public class FRUPDUsu extends javax.swing.JFrame {
+
     private int pkUsuario;
-    public void setPkUsuario(int pk){
+
+    public void setPkUsuario(int pk) {
         this.pkUsuario = pk;
     }
+
     /**
      * Creates new form FRUPDUsu
      */
@@ -115,6 +118,11 @@ public class FRUPDUsu extends javax.swing.JFrame {
         });
 
         BTExcluir.setText("Excluir");
+        BTExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTExcluirMouseClicked(evt);
+            }
+        });
         BTExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTExcluirActionPerformed(evt);
@@ -254,17 +262,17 @@ public class FRUPDUsu extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         UsuarioController controller = new UsuarioController();
         Usuario usu = controller.readForPk(pkUsuario);
-        
+
         String codigo = String.valueOf(usu.getPkUsuario());
         txtCodigo.setText(codigo);
         txtNome.setText(usu.getNomeUsu());
         txtEmail.setText(usu.getEmailUsu());
         txtDTNasc.setText(usu.getDataNasc());
         txtSenha.setText(usu.getSenhaUsu());
+        txtRSenha.setText(usu.getSenhaUsu());
         chkAtivo.setSelected(usu.getAtivoUsu() == 1);
     }//GEN-LAST:event_formWindowActivated
 
-    
     private boolean verificarCampos() {
         if (txtNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo 'Nome' em branco");
@@ -276,38 +284,38 @@ public class FRUPDUsu extends javax.swing.JFrame {
                     "Campo 'Nome' possui caracteres inválidos");
             return false;
         }
-        
+
         if (txtEmail.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo 'Email' em branco");
             return false;
         }
-        
+
         if (!txtEmail.getText().matches("^[a-zA-Z._]+@[a-zA-Z._]+.[a-zA-Z._]+$")) {
             JOptionPane.showMessageDialog(null,
                     "Campo 'Email' possui caracteres inválidos");
             return false;
         }
-        
+
         if (!txtDTNasc.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")) {
             JOptionPane.showMessageDialog(null,
-                    "Campo 'Data de Nascimento' possui formato inválidos"+ "EX: 01/01/2000");
+                    "Campo 'Data de Nascimento' possui formato inválidos" + "EX: 01/01/2000");
             return false;
         }
-        
+
         char[] senha = txtSenha.getPassword();
-        if(new String (senha).length() <8){
-            JOptionPane.showMessageDialog(null,"Campo 'senha' deve ser maior que 8 caracteres");
+        if (new String(senha).length() < 8) {
+            JOptionPane.showMessageDialog(null, "Campo 'senha' deve ser maior que 8 caracteres");
             return false;
         }
-        
-        if(!new String(senha).equals(new String(txtRSenha.getPassword()))){
-            JOptionPane.showMessageDialog(null,"As senhas não são iguais");
+
+        if (!new String(senha).equals(new String(txtRSenha.getPassword()))) {
+            JOptionPane.showMessageDialog(null, "As senhas não são iguais");
             return false;
         }
 
         return true;
     }
-    
+
     private void BTAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTAlterarMouseClicked
         if (!verificarCampos()) {
             return;
@@ -321,11 +329,23 @@ public class FRUPDUsu extends javax.swing.JFrame {
         usuario.setDataNasc(txtDTNasc.getText());
         usuario.setAtivoUsu(Utils.salvarBoolean(chkAtivo.isSelected()));
         usuario.setSenhaUsu(senha);
-        
-        if(controller.alterarUsuario(usuario)){
-                this.dispose();
+
+        if (controller.alterarUsuario(usuario)) {
+            this.dispose();
         };
     }//GEN-LAST:event_BTAlterarMouseClicked
+
+    private void BTExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTExcluirMouseClicked
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o usuario?",
+                "Confirmaçao", JOptionPane.YES_NO_OPTION);
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            UsuarioController controller = new UsuarioController();
+            if (controller.excluirUsuario(pkUsuario)) {
+                this.dispose();
+            };
+        }
+    }//GEN-LAST:event_BTExcluirMouseClicked
 
     /**
      * @param args the command line arguments
