@@ -14,12 +14,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author aluno.saolucas
  */
-public class FRConUsu extends javax.swing.JFrame {
+public class FRConUsu extends javax.swing.JDialog {
 
     /**
-     * Creates new form FRConUsu
+     * Creates new form FRConUsu_
      */
-    public FRConUsu() {
+    public FRConUsu(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -44,13 +45,6 @@ public class FRConUsu extends javax.swing.JFrame {
         BTVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Ulbra - Consulta Usuario");
-        setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -128,7 +122,7 @@ public class FRConUsu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(BTVoltar)
@@ -172,7 +166,13 @@ public class FRConUsu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFiltroActionPerformed
 
-    private void pesquisar() {
+    private void txtFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            pesquisar();
+        }
+    }//GEN-LAST:event_txtFiltroKeyPressed
+
+     private void pesquisar() {
         DefaultTableModel modelo = (DefaultTableModel) Tabela.getModel();
         modelo.setNumRows(0);
         UsuarioController controller = new UsuarioController();
@@ -183,34 +183,26 @@ public class FRConUsu extends javax.swing.JFrame {
 
         }
     }
-
+    
+    
+    
     private void BTPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTPesquisarMouseClicked
         pesquisar();
     }//GEN-LAST:event_BTPesquisarMouseClicked
 
     private void TabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseClicked
-       if(Tabela.getSelectedRow() != -1){
-           int pk = Integer.parseInt(
-           Tabela.getValueAt(Tabela.getSelectedRow(), 0).toString()
-           );
-       FRUPDUsu telaUPD = new FRUPDUsu();
-       telaUPD.setPkUsuario(pk);
-       telaUPD.setVisible(true);
-       }
+        if(Tabela.getSelectedRow() != -1){
+            int pk = Integer.parseInt(
+                Tabela.getValueAt(Tabela.getSelectedRow(), 0).toString()
+            );
+            FRUPDUsu telaUPD = new FRUPDUsu(null,rootPaneCheckingEnabled);
+            telaUPD.setPkUsuario(pk);
+            telaUPD.setVisible(true);
+        }
     }//GEN-LAST:event_TabelaMouseClicked
 
-    private void txtFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyPressed
-       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-           pesquisar();
-       }
-    }//GEN-LAST:event_txtFiltroKeyPressed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        pesquisar();
-    }//GEN-LAST:event_formWindowActivated
-
     private void BTVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTVoltarMouseClicked
-       
+
     }//GEN-LAST:event_BTVoltarMouseClicked
 
     /**
@@ -227,31 +219,31 @@ public class FRConUsu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRConUsu.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRConUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRConUsu().setVisible(true);
+                FRConUsu dialog = new FRConUsu(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

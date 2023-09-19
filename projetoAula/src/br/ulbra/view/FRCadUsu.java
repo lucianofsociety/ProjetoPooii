@@ -13,12 +13,13 @@ import javax.swing.JOptionPane;
  *
  * @author aluno.saolucas
  */
-public class FRCadUsu extends javax.swing.JFrame {
+public class FRCadUsu extends javax.swing.JDialog {
 
     /**
-     * Creates new form FRCadUsu
+     * Creates new form FRCadUsu_
      */
-    public FRCadUsu() {
+    public FRCadUsu(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -51,8 +52,7 @@ public class FRCadUsu extends javax.swing.JFrame {
         BTCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Ulbra - Cadastro de Usuario");
-        setResizable(false);
+        setTitle("Ulbra - Cadastro Usuario");
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 204));
 
@@ -62,6 +62,12 @@ public class FRCadUsu extends javax.swing.JFrame {
         jLabel2.setText("CADASTRO DE USUÁRIO");
 
         jLabel3.setText("NOME");
+
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("EMAIL");
 
@@ -136,7 +142,7 @@ public class FRCadUsu extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(chkAtivo))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +175,7 @@ public class FRCadUsu extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -197,10 +203,6 @@ public class FRCadUsu extends javax.swing.JFrame {
     private void txtRSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRSenhaActionPerformed
-
-    private void BTCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTCancelarMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_BTCancelarMouseClicked
 
     private boolean verificarCampos() {
         if (txtNome.getText().equals("")) {
@@ -245,6 +247,9 @@ public class FRCadUsu extends javax.swing.JFrame {
         return true;
     }
 
+    
+    
+    
     private void BTSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTSalvarMouseClicked
         if (!verificarCampos()) {
             return;
@@ -253,15 +258,23 @@ public class FRCadUsu extends javax.swing.JFrame {
         UsuarioController controller = new UsuarioController();
         String senha = new String(txtSenha.getPassword());
         if(controller.adicionarUsuario(txtNome.getText(), txtEmail.getText(), senha,
-                txtDTNasc.getText(), Utils.salvarBoolean(chkAtivo.isSelected()))){
-                this.dispose();
+            txtDTNasc.getText(), Utils.salvarBoolean(chkAtivo.isSelected()))){
+        this.dispose();
         };
-            
+
     }//GEN-LAST:event_BTSalvarMouseClicked
 
     private void BTSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSalvarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BTSalvarActionPerformed
+
+    private void BTCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_BTCancelarMouseClicked
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,11 +302,19 @@ public class FRCadUsu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FRCadUsu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRCadUsu().setVisible(true);
+                FRCadUsu dialog = new FRCadUsu(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

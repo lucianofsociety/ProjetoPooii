@@ -39,7 +39,7 @@ public class FRMenu extends javax.swing.JFrame {
         miConUsuarios = new javax.swing.JMenuItem();
         miConAgenda = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        miAjuda = new javax.swing.JMenuItem();
+        miSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ulbra - Menu Principal");
@@ -111,8 +111,13 @@ public class FRMenu extends javax.swing.JFrame {
 
         jMenu3.setText("Ajuda");
 
-        miAjuda.setText("Sobre");
-        jMenu3.add(miAjuda);
+        miSobre.setText("Sobre");
+        miSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSobreActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miSobre);
 
         jMenuBar1.add(jMenu3);
 
@@ -137,7 +142,7 @@ public class FRMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_miSairActionPerformed
 
     private void miCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadUsuarioActionPerformed
-        new FRCadUsu().setVisible(true);
+        new FRCadUsu(this,rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_miCadUsuarioActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
@@ -145,8 +150,12 @@ public class FRMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void miConUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConUsuariosActionPerformed
-        new FRConUsu().setVisible (true);
+        new FRConUsu(this,rootPaneCheckingEnabled).setVisible (true);
     }//GEN-LAST:event_miConUsuariosActionPerformed
+
+    private void miSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSobreActionPerformed
+         new FRSobre(this,rootPaneCheckingEnabled).setVisible (true);
+    }//GEN-LAST:event_miSobreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,12 +198,12 @@ public class FRMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenuItem miAjuda;
     private javax.swing.JMenuItem miCadAgenda;
     private javax.swing.JMenuItem miCadUsuario;
     private javax.swing.JMenuItem miConAgenda;
     private javax.swing.JMenuItem miConUsuarios;
     private javax.swing.JMenu miConsultas;
     private javax.swing.JMenuItem miSair;
+    private javax.swing.JMenuItem miSobre;
     // End of variables declaration//GEN-END:variables
 }
